@@ -20,11 +20,12 @@ dateForm.addEventListener('submit', function(e) {
       throw "That date is in the Ancient times!";
     }
   
+    const weekday = calculateWeekday(date);
     const year = calculateYear(date);
     const moon = calculateMoon(date);
     const day = calculateDayOfMoon(date);
   
-    const dateString = `${day} ${moon} ${year}`;
+    const dateString = `${weekday}, ${day} ${moon} ${year}`;
     
     const resultsText = document.getElementById("cyrnan-date");
     resultsText.innerText = `The Cyrnan date is ${dateString}`;
@@ -34,6 +35,29 @@ dateForm.addEventListener('submit', function(e) {
   }
 
 });
+
+function calculateWeekday(date) {
+  const weekday = date.getUTCDay();
+
+  switch (weekday) {
+    case 0:
+      return "Valgrensday";
+    case 1:
+      return "Meronethsday";
+    case 2: 
+      return "Kyrizziansday";
+    case 3: 
+      return "Nahiirasday";
+    case 4:
+      return "Kassoriasday";
+    case 5:
+      return "Zekadorsday";
+    case 6: 
+      return "Natlantisday";
+    default:
+      throw "Invalid date"
+  }
+}
 
 function calculateYear(date) {
   const year = date.getUTCFullYear();
