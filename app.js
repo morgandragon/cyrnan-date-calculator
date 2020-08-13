@@ -80,6 +80,8 @@ function calculateYear(date) {
     case 6:
       god = "Meroneth";
       break;
+    default:
+      throw "invalid date";
   }
 
   if (skip) {
@@ -116,11 +118,19 @@ function calculateDayOfMoon(date) {
   const dayOfYear = calculateDayOfYear(date);
   const skip = isSkip(date.getUTCFullYear());
 
+  // skip is 60
+
   switch(moon) {
     case "Spalina":
       return dayOfYear;
     case "Redanza":
-      return dayOfYear - 53;
+      if (skip && dayOfYear == 60) {
+        return "Skip Day";
+      } else if (skip) {
+        return dayOfYear - 54;
+      } else {
+        return dayOfYear - 53;
+      }
     case "Niran":
       return dayOfYear - (skip ? 105 : 104);
     case "Toria":
